@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First week</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function (){
+            $("#changeCity").click(function(){
+                var cityName = $("#city").val();
+                    $.ajax({
+                    type:"GET",
+                    url: "https://api.openweathermap.org/data/2.5/weather?q="+'Christchurch'+"&appid=cdf05d929ed5cfa526764c43d2b832d2",
+                    dataType: "JSON",
+                    success: function (data){
+                        console.log(data);
+                        description = data.weather[0].description;
+                        rain = data.rain["1h"];
+                        temperature = data.main.temp;
+                        $("#description").text(description);
+                        $("#rain").text(rain);
+                        $("#temperature").text(temperature);
+                    },
+                    error: function (err){
+                        console.log(err);
+                    },
+                })
+            });
+
+        });
+    </script>
+</head>
+<body>
+<input type="text" placeholder="City" id="city">
+<button id="changeCity">Go</button>
+<table>
+    <tr>
+        <td>description:</td>
+        <td id="description"></td>
+    </tr>
+    <tr>
+        <td>rain:</td>
+        <td id="rain"></td>
+    </tr>
+    <tr>
+        <td>temperature:</td>
+        <td id="temperature"></td>
+    </tr>
+
+</table>
+</body>
+</html>
